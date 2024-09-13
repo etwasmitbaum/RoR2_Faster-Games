@@ -77,10 +77,9 @@ namespace FasterGames
                 if (artifactType == typeof(NoChestArtifact))
                 {
                     noChestArtifact = (NoChestArtifact)artifact;
+                    Logger.LogDebug("Found NoChestArtifact");
                 }
             }
-
-            // NoChestArtifact noChestArtifact = new NoChestArtifact();
 
             RoR2.Run.onRunStartGlobal += (RoR2.Run run) =>
             {
@@ -92,9 +91,11 @@ namespace FasterGames
                     if (noChestArtifact.ArtifactEnabled)
                     {
                         Logger.LogInfo("NoChestArtifact is enabled. Disabling chest based hooks");
+                        noChestArtifact.Hooks();
                     }
                     else
                     {
+                        Logger.LogInfo("NoChestArtifact is NOT enabled.");
                         myHooks.IncreaseExpCoefficient(baseExpMultiplier.Value, expPerPlayerMultiplier.Value);
                         myHooks.IncreaseMoneyMultiplier(baseMoney.Value, moneyPerPlayer.Value);
                         myHooks.IncreaseChestSpawnRate(baseInteractableMultiplier.Value, perPlayerInteractableMultiplier.Value);

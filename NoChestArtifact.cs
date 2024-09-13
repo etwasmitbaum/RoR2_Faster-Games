@@ -24,16 +24,16 @@ namespace FasterGames
         private BepInEx.Logging.ManualLogSource _logger;
         public override void Init(ConfigFile config, BepInEx.Logging.ManualLogSource logger)
         {
+            _logger = logger;
+            _logger.LogInfo($"Total Network Users: {NetworkUser.instancesList.Count}");
             CreateConfig(config);
             CreateLang();
             CreateArtifact();
-            Hooks();
-            _logger = logger;
-            _logger.LogInfo($"Total Network Users: {NetworkUser.instancesList.Count}");
         }
 
         public override void Hooks()
         {
+            _logger.LogInfo("NoChestArtifact Hooking Hooks");
             GlobalEventManager.onCharacterDeathGlobal += OnServerCharacterDeath;
             SceneDirector.onPrePopulateSceneServer += SacrificeArtifactManager.OnPrePopulateSceneServer;
             SceneDirector.onGenerateInteractableCardSelection += SacrificeArtifactManager.OnGenerateInteractableCardSelection;

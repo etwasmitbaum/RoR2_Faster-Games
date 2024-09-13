@@ -102,15 +102,15 @@ namespace FasterGames
         //Credit to https://github.com/TheRealElysium/R2Mods/blob/master/Faster3DPrinters
         public void NoCoolDown3dPrinter()
         {
-            On.RoR2.Stage.Start += (orig, self) =>
-            {
-                orig(self);
-                if (NetworkServer.active)
-                {
-                    typeof(EntityStates.Duplicator.Duplicating).SetFieldValue("initialDelayDuration", 0.1f);
-                    typeof(EntityStates.Duplicator.Duplicating).SetFieldValue("timeBetweenStartAndDropDroplet", 0f);
-                }
-            };
+            //On.RoR2.Stage.Start += (orig, self) =>
+            //{
+            //    orig(self);
+            //    if (NetworkServer.active)
+            //    {
+            //        typeof(EntityStates.Duplicator.Duplicating).SetFieldValue("initialDelayDuration", 0.1f);
+            //        typeof(EntityStates.Duplicator.Duplicating).SetFieldValue("timeBetweenStartAndDropDroplet", 0f);
+            //    }
+            //};
 
             On.EntityStates.Duplicator.Duplicating.DropDroplet += (orig, self) =>
             {
