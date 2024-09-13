@@ -96,6 +96,7 @@ namespace FasterGames
                     else
                     {
                         Logger.LogInfo("NoChestArtifact is NOT enabled.");
+                        noChestArtifact.removeHooks();
                         myHooks.IncreaseExpCoefficient(baseExpMultiplier.Value, expPerPlayerMultiplier.Value);
                         myHooks.IncreaseMoneyMultiplier(baseMoney.Value, moneyPerPlayer.Value);
                         myHooks.IncreaseChestSpawnRate(baseInteractableMultiplier.Value, perPlayerInteractableMultiplier.Value);

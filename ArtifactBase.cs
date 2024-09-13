@@ -16,6 +16,9 @@ namespace FasterGames
         //For use only after the run has started.
         public bool ArtifactEnabled => RunArtifactManager.instance.IsArtifactEnabled(ArtifactDef);
 
+        // Set this to true when hooking
+        public bool ArtifactHooksActive = false;
+
         public abstract void Init(ConfigFile config, BepInEx.Logging.ManualLogSource logger);
         protected void CreateLang()
         {
@@ -33,5 +36,6 @@ namespace FasterGames
             ContentAddition.AddArtifactDef(ArtifactDef);
         }
         public abstract void Hooks();
+        public abstract void removeHooks();
     }
 }

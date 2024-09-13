@@ -33,11 +33,28 @@ namespace FasterGames
 
         public override void Hooks()
         {
-            _logger.LogInfo("NoChestArtifact Hooking Hooks");
-            GlobalEventManager.onCharacterDeathGlobal += OnServerCharacterDeath;
-            SceneDirector.onPrePopulateSceneServer += SacrificeArtifactManager.OnPrePopulateSceneServer;
-            SceneDirector.onGenerateInteractableCardSelection += SacrificeArtifactManager.OnGenerateInteractableCardSelection;
-            DirectorCardCategorySelection.calcCardWeight += SacrificeArtifactManager.CalcCardWeight;
+            if (!ArtifactHooksActive)
+            {
+                _logger.LogInfo("NoChestArtifact Hooking Hooks");
+                GlobalEventManager.onCharacterDeathGlobal += OnServerCharacterDeath;
+                SceneDirector.onPrePopulateSceneServer += SacrificeArtifactManager.OnPrePopulateSceneServer;
+                SceneDirector.onGenerateInteractableCardSelection += SacrificeArtifactManager.OnGenerateInteractableCardSelection;
+                DirectorCardCategorySelection.calcCardWeight += SacrificeArtifactManager.CalcCardWeight;
+                ArtifactHooksActive = true;
+            }
+        }
+        public override void removeHooks()
+        {
+            if (ArtifactHooksActive)
+            {
+                _logger.LogInfo("NoChestArtifact Un-Hooking Hooks");
+                GlobalEventManager.onCharacterDeathGlobal -= OnServerCharacterDeath;
+                SceneDirector.onPrePopulateSceneServer -= SacrificeArtifactManager.OnPrePopulateSceneServer;
+                SceneDirector.onGenerateInteractableCardSelection -= SacrificeArtifactManager.OnGenerateInteractableCardSelection;
+                DirectorCardCategorySelection.calcCardWeight -= SacrificeArtifactManager.CalcCardWeight;
+                ArtifactHooksActive = false;
+            }
+            
         }
 
         private void CreateConfig(ConfigFile config)
