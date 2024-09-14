@@ -45,6 +45,7 @@ namespace FasterGames
 
 
         public List<ArtifactBase> Artifacts = new List<ArtifactBase>();
+        private Hooks myHooks = new Hooks();
 
         [System.Obsolete]
         public void Awake()
@@ -56,6 +57,7 @@ namespace FasterGames
             }
             string InitMessage = "Your game is Faster!";
             Logger.LogInfo(InitMessage);
+            myHooks.pluginLogger = Logger;
 
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("FasterGames.assets.assetbundle"))
             {
@@ -86,8 +88,6 @@ namespace FasterGames
                 if (run.selectedDifficulty == diffIndex)
                 {
                     ChatMessage.SendColored(InitMessage, new Color(0.78f, 0.788f, 0.3f));
-                    Hooks myHooks = new Hooks();
-                    myHooks.pluginLogger = Logger;
                     if (noChestArtifact.ArtifactEnabled)
                     {
                         Logger.LogInfo("NoChestArtifact is enabled. Disabling chest based hooks");
@@ -97,16 +97,19 @@ namespace FasterGames
                     {
                         Logger.LogInfo("NoChestArtifact is NOT enabled.");
                         noChestArtifact.removeHooks();
-                        myHooks.IncreaseExpCoefficient(baseExpMultiplier.Value, expPerPlayerMultiplier.Value);
-                        myHooks.IncreaseMoneyMultiplier(baseMoney.Value, moneyPerPlayer.Value);
-                        myHooks.IncreaseChestSpawnRate(baseInteractableMultiplier.Value, perPlayerInteractableMultiplier.Value);
-                        myHooks.OverhaulChanceShrines(chanceShrineItemCount.Value, chanceShrineCostMultiplier.Value);
+                        myHooks.HookIncreaseExpCoefficient(baseExpMultiplier.Value, expPerPlayerMultiplier.Value);
+                        myHooks.HookIncreaseMoneyMultiplier(baseMoney.Value, moneyPerPlayer.Value);
+                        myHooks.HookIncreaseChestSpawnRate(baseInteractableMultiplier.Value, perPlayerInteractableMultiplier.Value);
+                        myHooks.HookOverhaulChanceShrines(chanceShrineItemCount.Value, chanceShrineCostMultiplier.Value);
                     }
-                    myHooks.NoCoolDown3dPrinter();
+                    myHooks.HookNoCoolDown3dPrinter();
                     // myHooks.IncreaseSpawnSpeed();
-                    myHooks.IncreaseBaseStats(moveSpeed.Value);
-                    myHooks.IncreaseTeleporterChargeSpeed(teleporterChargeMultiplier.Value);
+                    myHooks.HookIncreaseBaseStats(moveSpeed.Value);
+                    myHooks.HookIncreaseTeleporterChargeSpeed(teleporterChargeMultiplier.Value);
                     ChatMessage.SendColored("[FasterGames] If you plan on playing different difficulty, you must restart your game!", new Color(0.78f, 0.788f, 0.3f));
+                } else
+                {
+                    myHooks.RemoveAllHook();
                 }
             };
         }
