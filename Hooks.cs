@@ -87,7 +87,7 @@ namespace FasterGames
                 On.RoR2.CombatDirector.Simulate += IncreaseMoneyMultiplier;
                 isIncreaseMoneyMultiplierEnabled = true;
             }
-            
+
         }
         public void RemoveIncreaseMoneyMultiplier()
         {
@@ -134,7 +134,7 @@ namespace FasterGames
                 On.RoR2.ClassicStageInfo.Awake += IncreaseChestSpawnRate;
                 isIncreaseChestSpawnRateEnabled = true;
             }
-            
+
         }
         public void RemoveIncreaseChestSpawnRate()
         {
@@ -157,7 +157,7 @@ namespace FasterGames
                 On.RoR2.ShrineChanceBehavior.AddShrineStack += RemoveChanceTimer;
                 isOverhaulChanceShrinesEnabled = true;
             }
-            
+
         }
         public void RemoveOverhaulChanceShrines()
         {
@@ -179,7 +179,7 @@ namespace FasterGames
                 On.RoR2.HoldoutZoneController.OnEnable += IncreaseTeleporterChargeSpeed;
                 isIncreaseTeleporterChargeSpeedEnabled = true;
             }
-            
+
         }
         public void RemoveIncreaseTeleporterChargeSpeed()
         {
@@ -189,7 +189,7 @@ namespace FasterGames
                 pluginLogger.LogInfo($"Removed IncreaseTeleporterChargeSpeed Hook");
                 isIncreaseTeleporterChargeSpeedEnabled = false;
             }
-                
+
         }
 
 

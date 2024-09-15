@@ -85,18 +85,16 @@ namespace FasterGames
 
             RoR2.Run.onRunStartGlobal += (RoR2.Run run) =>
             {
+                // Handle selected Difficulty
                 if (run.selectedDifficulty == diffIndex)
                 {
                     ChatMessage.SendColored(InitMessage, new Color(0.78f, 0.788f, 0.3f));
                     if (noChestArtifact.ArtifactEnabled)
                     {
                         Logger.LogInfo("NoChestArtifact is enabled. Disabling chest based hooks");
-                        noChestArtifact.Hooks();
                     }
                     else
                     {
-                        Logger.LogInfo("NoChestArtifact is NOT enabled.");
-                        noChestArtifact.removeHooks();
                         myHooks.HookIncreaseExpCoefficient(baseExpMultiplier.Value, expPerPlayerMultiplier.Value);
                         myHooks.HookIncreaseMoneyMultiplier(baseMoney.Value, moneyPerPlayer.Value);
                         myHooks.HookIncreaseChestSpawnRate(baseInteractableMultiplier.Value, perPlayerInteractableMultiplier.Value);
@@ -107,9 +105,20 @@ namespace FasterGames
                     myHooks.HookIncreaseBaseStats(moveSpeed.Value);
                     myHooks.HookIncreaseTeleporterChargeSpeed(teleporterChargeMultiplier.Value);
                     ChatMessage.SendColored("[FasterGames] If you plan on playing different difficulty, you must restart your game!", new Color(0.78f, 0.788f, 0.3f));
-                } else
+                }
+                else { }
+
+                // Handle selected Artifact
+                // TODO Does this artifact make sense without the new difficulty?
+                if (noChestArtifact.ArtifactEnabled)
                 {
-                    myHooks.RemoveAllHook();
+                    Logger.LogInfo("NoChestArtifact is enabled.");
+                    noChestArtifact.Hooks();
+                }
+                else
+                {
+                    Logger.LogInfo("NoChestArtifact is NOT enabled.");
+                    noChestArtifact.removeHooks();
                 }
             };
         }

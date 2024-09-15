@@ -54,7 +54,7 @@ namespace FasterGames
                 DirectorCardCategorySelection.calcCardWeight -= SacrificeArtifactManager.CalcCardWeight;
                 ArtifactHooksActive = false;
             }
-            
+
         }
 
         private void CreateConfig(ConfigFile config)
